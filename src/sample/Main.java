@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -36,21 +37,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        ObservableList<String> langs = FXCollections.observableArrayList("Java", "JavaScript", "C#", "Python");
-        ListView<String> langsListView = new ListView<String>(langs);
-        langsListView.setPrefSize(250, 150);
+        ObservableList<String> langs = FXCollections.observableArrayList("Java", "JavaScript", "C#");
+        ComboBox<String> langsComboBox = new ComboBox<String>(langs);
+        langsComboBox.setValue("Java");
 
-        Button btn = new Button("Change");
+        Label lbl = new Label();
 
-        btn.setOnAction(event -> {
-            ObservableList<String> newLangs = FXCollections.observableArrayList("PHP", "GO", "c++");
-            langsListView.setItems(newLangs);
-        });
+        langsComboBox.setOnAction(event -> lbl.setText(langsComboBox.getValue()));
+        FlowPane root = new FlowPane(10, 10, langsComboBox, lbl);
 
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, btn, langsListView);
         Scene scene = new Scene(root, 300, 250);
         stage.setScene(scene);
-        stage.setTitle("ListView in JavaFX");
+        stage.setTitle("ComboBox in JavaFX");
         stage.show();
     }
 }
