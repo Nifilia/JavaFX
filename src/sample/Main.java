@@ -28,11 +28,20 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Button btn = new Button("Hello");
-        VBox vbox = new VBox();
-        VBox.setVgrow(btn, Priority.ALWAYS);
-        btn.setMaxHeight(Double.MAX_VALUE);
-        vbox.getChildren().addAll(btn);
+        Button okBtn = new Button("OK");
+        Button cancelBtn = new Button("Cancel");
+        Label lbl = new Label("Select");
+
+        VBox vbox = new VBox(15);
+
+        VBox.setVgrow(okBtn, Priority.ALWAYS);
+        okBtn.setMaxHeight(Double.MAX_VALUE);
+        okBtn.setMaxWidth(100);
+
+        VBox.setVgrow(cancelBtn, Priority.ALWAYS);
+        cancelBtn.setMaxHeight(Double.MAX_VALUE);
+        cancelBtn.setMaxWidth(100);
+        vbox.getChildren().addAll(lbl, okBtn, cancelBtn);
 
         Scene scene = new Scene(vbox, 300, 150);
         stage.setScene(scene);
