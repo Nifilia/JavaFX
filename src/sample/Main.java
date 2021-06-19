@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -31,16 +32,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Label lbl = new Label();
-        TextArea textArea = new TextArea();
-        textArea.setPrefColumnCount(15);
-        textArea.setPrefRowCount(5);
-        Button btn = new Button("Click");
-        btn.setOnAction(event -> lbl.setText("Input: " + textArea.getText()));
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, textArea, btn, lbl);
-        root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root, 300, 250);
+        Label headerLbl = new Label("ScrollPane");
+        Label textLbl = new Label("Lorem ipsum yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
+        ScrollPane scrollPane = new ScrollPane(textLbl);
+        scrollPane.setPrefViewportHeight(150);
+        scrollPane.setPrefViewportWidth(200);
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, headerLbl, scrollPane);
+        Scene scene = new Scene(root, 300, 250);
         stage.setScene(scene);
         stage.setTitle("TextArea in JavaFX");
         stage.show();
