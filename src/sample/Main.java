@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -17,20 +21,11 @@ public class Main extends Application {
         Application.launch(args);
     }
     @Override
-    public void start(Stage stage){
-        Button btn = new Button();
-        btn.setText("Click!");
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                btn.setText("You've clicked!");
-            }
-        });
-        Group root = new Group(btn);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-
         stage.setTitle("Hello JavaFX");
         stage.setWidth(250);
         stage.setHeight(200);
