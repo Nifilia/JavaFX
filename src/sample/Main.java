@@ -26,21 +26,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Label label1 = new Label("Label1");
-        Label label2 = new Label("Label2");
-        Label label3 = new Label("Label3");
-        Label label4 = new Label("Label4");
-        Label label5 = new Label("Label5");
-        Label label6 = new Label("Label6");
-        Label label7 = new Label("Label7");
-
-        HBox root = new HBox(10, label1, label2, label3, label4, label5, label6, label7);
-        Scene scene = new Scene(root, 500, 150);
+        HBox hbox = new HBox();
+        Button button1 = new Button("Add");
+        Button button2 = new Button("Remove");
+        hbox.getChildren().addAll(button1, button2);
+        Scene scene = new Scene(hbox, 300, 150);
         stage.setScene(scene);
 
-        stage.setTitle("FlowPane in JavaFX");
-        stage.setWidth(300);
-        stage.setHeight(200);
+        stage.setTitle("HBox in JavaFX");
 
         stage.show();
     }
