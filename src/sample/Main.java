@@ -21,14 +21,16 @@ public class Main extends Application {
         Application.launch(args);
     }
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+    public void start(Stage stage) {
 
-        Scene scene = new Scene(root);
+        Label lbl = new Label("Hello");
+        Button btn = new Button("Click");
+        FlowPane root = new FlowPane();
+        root.getChildren().addAll(lbl, btn);
+        Scene scene = new Scene(root, 300, 200);
         stage.setScene(scene);
-        stage.setTitle("Hello JavaFX");
-        stage.setWidth(250);
-        stage.setHeight(200);
+
+        stage.setTitle("Layout in JavaFX");
 
         stage.show();
     }
