@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -28,33 +29,20 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
 
-        Label selectedLbl = new Label();
-        Button selectedBtn = new Button("Select");
-
-        RadioButton javaBtn = new RadioButton("Java");
-        RadioButton jsBtn = new RadioButton("JavaScripts");
-        RadioButton csharpBtn = new RadioButton("C#");
-
-        ToggleGroup group = new ToggleGroup();
-
-        javaBtn.setToggleGroup(group);
-        jsBtn.setToggleGroup(group);
-        csharpBtn.setToggleGroup(group);
-
-        selectedBtn.setOnAction(event -> {
-            RadioButton selection = (RadioButton) group.getSelectedToggle();
-            selectedLbl.setText("Selected: " + selection.getText());
-        });
-
-        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10);
-        root.getChildren().addAll(javaBtn, jsBtn, csharpBtn, selectedBtn, selectedLbl);
-        root.setPadding(new Insets(10));
-        Scene scene = new Scene(root, 250, 200);
+        Label lbl = new Label();
+        TextArea textArea = new TextArea();
+        textArea.setPrefColumnCount(15);
+        textArea.setPrefRowCount(5);
+        Button btn = new Button("Click");
+        btn.setOnAction(event -> lbl.setText("Input: " + textArea.getText()));
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, textArea, btn, lbl);
+        root.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(root, 300, 250);
 
         stage.setScene(scene);
-        stage.setTitle("RadioButtons in JavaFX");
+        stage.setTitle("TextArea in JavaFX");
         stage.show();
     }
 }
