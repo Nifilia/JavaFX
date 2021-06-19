@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,7 +23,10 @@ import java.util.concurrent.Flow;
 
 public class Main extends Application {
 
-    int clicks = 0;
+    CheckBox java;
+    CheckBox javascript;
+    CheckBox csharp;
+    Label selectedLangs;
 
     public static void main(String[] args){
         Application.launch(args);
@@ -31,25 +35,36 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Label lbl = new Label("Counter");
-        lbl.setPrefWidth(70);
-        Button btn = new Button("Click");
-        btn.setPrefWidth(80);
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                clicks++;
-                lbl.setText(String.valueOf(clicks));
-            }
-        });
+        selectedLangs = new Label("No languages selected");
 
-        FlowPane root = new FlowPane(lbl, btn);
-        Scene scene = new Scene(root);
+        java = new CheckBox("Java");
+        javascript = new CheckBox("JavaScript");
+        csharp = new CheckBox("C#");
 
+        java.setOnAction(event -> show());
+        javascript.setOnAction(event -> show());
+        csharp.setOnAction(event -> show());
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 0, 10);
+        root.getChildren().addAll(java, javascript, csharp, selectedLangs);
+        root.setPadding(new Insets(0, 0, 0, 10));
+
+        Scene scene = new Scene(root, 250, 200);
         stage.setScene(scene);
         stage.setTitle("Hello JavaFX");
-        stage.setWidth(250);
-        stage.setHeight(200);
         stage.show();
+    }
+
+    private void show(){
+        String allSelected = "";
+
+        if(java.isSelected()) allSelected += "Java ";
+        if(javascript.isSelected()) allSelected += "JavaScript ";
+        if(csharp.isSelected()) allSelected += "C# ";
+
+        if(allSelected.equals(""))
+            selectedLangs.setText("No languages selected");
+        else
+            selectedLangs.setText(allSelected);
     }
 }
