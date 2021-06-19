@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.FlowPane;
@@ -16,12 +18,23 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage stage){
+        Button btn = new Button();
+        btn.setText("Click!");
 
-        Group root = new Group();
-        Scene scene = new Scene(root, 400, 150, Color.BLUE);
-
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                btn.setText("You've clicked!");
+            }
+        });
+        Group root = new Group(btn);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
+
         stage.setTitle("Hello JavaFX");
+        stage.setWidth(250);
+        stage.setHeight(200);
+
         stage.show();
     }
 }
