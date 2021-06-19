@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,17 +38,37 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Label lbl = new Label("Label");
-        lbl.setTooltip(new Tooltip("This is a label"));
+        ObservableList<Person> people = FXCollections.observableArrayList(
+                new Person("Tom", 34),
+                new Person("Bob", 22),
+                new Person("Sam", 28),
+                new Person("Alice", 29)
+        );
+        Label lbl = new Label();
+        TableView<Person> table = new TableView<Person>(people);
+        table.setPrefWidth(250);
+        table.setPrefHeight(200);
 
-        Button btn = new Button("Click");
-        btn.setTooltip(new Tooltip("Click the button to start an action"));
-        FlowPane root = new FlowPane(10, 10, btn, lbl);
+        TableColumn<Person, String> nameColumn = new TableColumn<Person, String>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Person, String >("name"));
+        table.getColumns().add(nameColumn);
 
-        Scene scene = new Scene(root, 250, 200);
+        TableColumn<Person, Integer> ageColumn = new TableColumn<Person, Integer>("Age");
+        ageColumn.setCellValueFactory(new PropertyValueFactory<Person, Integer>("age"));
+        table.getColumns().add(ageColumn);
 
+        TableView.TableViewSelectionModel<Person> selectionModel = table.getSelectionModel();
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<Person>() {
+            public void changed(ObservableValue<? extends Person> val, Person oldVal, Person newVal) {
+                if(newVal != null) lbl.setText("Selected: " + newVal.getName());
+            }
+        });
+
+        FlowPane root = new FlowPane(Orientation.VERTICAL, 10, 10, lbl, table);
+
+        Scene scene = new Scene(root, 300, 250);
         stage.setScene(scene);
-        stage.setTitle("Tooltip in JavaFX");
+        stage.setTitle("TableView in JavaFX");
         stage.show();
     }
 }
